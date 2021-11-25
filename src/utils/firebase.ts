@@ -7,6 +7,11 @@ import {
 	onAuthStateChanged,
 	User
 } from 'firebase/auth';
+import {
+	collection,
+	CollectionReference,
+	getFirestore
+} from 'firebase/firestore';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyA04mYkFg3-fRXuT6s68BNZg-c4XDV2k-s',
@@ -36,3 +41,15 @@ export const signOut = () => authSignOut(auth);
 // Subscribe to auth state changes
 export const onAuthChanged = (callback: (u: User | null) => void) =>
 	onAuthStateChanged(auth, callback);
+
+const db = getFirestore();
+
+export type UserTokens = {
+	user: string;
+	tokens: number;
+};
+
+export const userTokensCollection = collection(
+	db,
+	'users'
+) as CollectionReference<UserTokens>;

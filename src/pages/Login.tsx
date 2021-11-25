@@ -2,8 +2,9 @@ import { Button, Paper, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router';
+import { addDoc } from '@firebase/firestore';
 
-import { signIn, signUp } from '../utils/firebase';
+import { signIn, signUp, userTokensCollection } from '../utils/firebase';
 import useField from '../hooks/useField';
 
 const Login = () => {
@@ -16,15 +17,21 @@ const Login = () => {
 
 	const [submitError, setSubmitError] = useState<string>();
 
+	const handleRegistration = async () => {
+		await signUp(email, password);
+		addDoc(userTokensCollection, {
+			user: email,
+			tokens: 2
+		});
+	};
+
 	return (
 		<Paper
 			component="form"
 			onSubmit={async (e: FormEvent) => {
 				e.preventDefault();
 				try {
-					isSignUp
-						? await signUp(email, password)
-						: await signIn(email, password);
+					isSignUp ? await handleRegistration() : await signIn(email, password);
 					push('/');
 				} catch (err) {
 					setSubmitError(
