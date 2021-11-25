@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
+
+import { signOut } from '../utils/firebase';
 
 const UserMenu: FC = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -40,8 +43,12 @@ const UserMenu: FC = () => {
 				open={Boolean(anchorEl)}
 				onClose={handleClose}
 			>
-				<MenuItem onClick={handleClose}>My account</MenuItem>
-				<MenuItem onClick={handleClose}>Logout</MenuItem>
+				<MenuItem onClick={handleClose} component={Link} to="/account">
+					My account
+				</MenuItem>
+				<MenuItem onClick={signOut} component={Link} to="/logout">
+					Logout
+				</MenuItem>
 			</Menu>
 		</>
 	);

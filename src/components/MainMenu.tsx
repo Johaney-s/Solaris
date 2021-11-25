@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 const MainMenu: FC = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -40,10 +41,18 @@ const MainMenu: FC = () => {
 				open={Boolean(anchorEl)}
 				onClose={handleClose}
 			>
-				<MenuItem onClick={handleClose}>Home</MenuItem>
-				<MenuItem onClick={handleClose}>Explore</MenuItem>
-				<MenuItem onClick={handleClose}>Adopt asteroid</MenuItem>
-				<MenuItem onClick={handleClose}>Adopted asteroids</MenuItem>
+				<MenuItem onClick={handleClose} component={Link} to="/">
+					Home
+				</MenuItem>
+				<MenuItem onClick={handleClose} component={Link} to="/explore">
+					Explore
+				</MenuItem>
+				<MenuItem onClick={handleClose} component={Link} to="/adopt">
+					Adopt asteroid
+				</MenuItem>
+				<MenuItem onClick={handleClose} component={Link} to="/adopted">
+					Adopted asteroids
+				</MenuItem>
 			</Menu>
 		</>
 	);
