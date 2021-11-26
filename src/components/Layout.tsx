@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
 import { AppBar, Container, Toolbar, Button, Typography } from '@mui/material';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import useLoggedInUser from '../hooks/useLoggedInUser';
