@@ -15,7 +15,7 @@ const SpaceBody: FC<Props> = ({ type, name }) => (
 		sx={{
 			display: 'flex',
 			flexDirection: 'column',
-			width: '50%'
+			width: '100%'
 		}}
 	>
 		<CardContent>
