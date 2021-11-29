@@ -1,7 +1,7 @@
 import { Card, CardContent, Grid, Typography } from '@mui/material';
 import { FC } from 'react';
 
-import earthImage from '../images/Mars.png';
+import earthImage from '../images/Earth.png';
 
 import InfoBox from './InfoBox';
 
