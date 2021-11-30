@@ -1,16 +1,39 @@
-import { Card, CardContent, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import { FC } from 'react';
-
-import earthImage from '../images/Earth.png';
 
 import InfoBox from './InfoBox';
 
-type Props = {
-	type: 'planet' | 'moon' | 'asteroid';
-	name: string; // name or id ?
+export type Body = {
+	englishName: string;
+	isPlanet: boolean;
+	mass: {
+		massValue: number;
+		massExponent: number;
+	};
+	avgTemp: number;
+	sideralOrbit: number;
+	meanRadius: number;
+	equaRadius: number;
 };
 
-const SpaceBody: FC<Props> = ({ type, name }) => (
+type Props = {
+	body: Body;
+};
+
+const mainPlanets = new Set([
+	'Venus',
+	'Mercury',
+	'Earth',
+	'Mars',
+	'Jupiter',
+	'Satur',
+	'Uranus',
+	'Neptune'
+]);
+
+const isMainPlanet = (planetName: string) => mainPlanets.has(planetName);
+
+const SpaceBody: FC<Props> = ({ body }) => (
 	<Card
 		sx={{
 			display: 'flex',
@@ -20,31 +43,68 @@ const SpaceBody: FC<Props> = ({ type, name }) => (
 	>
 		<CardContent>
 			<Typography variant="h5" color="textSecondary">
-				{name}
+				{body.englishName}
 			</Typography>
 			{/*<Typography>{type}</Typography>*/}
-			<img
-				src={earthImage}
-				alt={name}
-				style={{
+			<Box
+				sx={{
 					borderRadius: 20,
 					padding: '1',
-					width: '70%'
+					width: '100%'
 				}}
-			/>
+			>
+				<img
+					src={
+						isMainPlanet(body.englishName)
+							? `/images/${body.englishName}.png`
+							: `/images/Dwarf.png`
+					}
+					alt={body.englishName}
+					// height="auto"
+					// height={300}
+					// width="auto"
+					// width={300}
+					style={{
+						borderRadius: 20,
+						padding: '1',
+						// // margin: '1'
+						// width: '70%'
+						// width: '350px',
+						// width: 'auto',
+						height: '12em',
+						width: '12em',
+						// height: '350px'
+						// height: '150px',
+						objectFit: 'cover'
+					}}
+				/>
+			</Box>
 			<Grid container spacing={3}>
-				{/*TODO: change values for actual ones from API*/}
 				<Grid item xs={6}>
-					<InfoBox value={365.26} unit="EY" caption="Year Length" />
+					<InfoBox
+						value={Math.round(body.sideralOrbit)}
+						unit="days"
+						caption="Year Length"
+					/>
 				</Grid>
 				<Grid item xs={6}>
-					<InfoBox value={6378.14} unit="km" caption="Radius" />
+					<InfoBox
+						value={Math.round(
+							body.equaRadius === 0 ? body.meanRadius : body.equaRadius
+						)}
+						unit="km"
+						caption="Radius"
+					/>
 				</Grid>
 				<Grid item xs={6}>
-					<InfoBox value={288} unit="K" caption="Mean Temperature" />
+					<InfoBox value={body.avgTemp} unit="K" caption="Mean Temperature" />
 				</Grid>
 				<Grid item xs={6}>
-					<InfoBox value={10} unit="10n kg" caption="Mass" />
+					<InfoBox
+						value={Math.round(body.mass.massValue)}
+						unit={`10^${body.mass.massExponent} kg`}
+						caption="Mass"
+					/>
 				</Grid>
 			</Grid>
 		</CardContent>
