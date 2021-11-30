@@ -3,14 +3,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Layout from './components/Layout';
 import theme from './utils/theme';
-import Routes from './components/Routes';
+import Routing from './components/Routing';
 
 const App = () => (
 	<ThemeProvider theme={theme}>
 		<BrowserRouter>
 			<CssBaseline />
 			<Layout>
-				<Routes />
+				<Routing />
 			</Layout>
 		</BrowserRouter>
 	</ThemeProvider>

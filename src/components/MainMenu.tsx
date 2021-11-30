@@ -41,9 +41,6 @@ const MainMenu: FC = () => {
 				open={Boolean(anchorEl)}
 				onClose={handleClose}
 			>
-				<MenuItem onClick={handleClose} component={Link} to="/">
-					Home
-				</MenuItem>
 				<MenuItem onClick={handleClose} component={Link} to="/explore">
 					Explore
 				</MenuItem>

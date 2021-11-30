@@ -26,7 +26,7 @@ const mainPlanets = new Set([
 	'Earth',
 	'Mars',
 	'Jupiter',
-	'Satur',
+	'Saturn',
 	'Uranus',
 	'Neptune'
 ]);

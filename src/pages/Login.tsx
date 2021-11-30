@@ -1,14 +1,14 @@
 import { Button, Paper, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { FormEvent, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { addDoc } from '@firebase/firestore';
 
 import { signIn, signUp, userTokensCollection } from '../utils/firebase';
 import useField from '../hooks/useField';
 
 const Login = () => {
-	const { push } = useHistory();
+	const navigate = useNavigate();
 
 	const [isSignUp, setSignUp] = useState(false);
 
@@ -32,7 +32,7 @@ const Login = () => {
 				e.preventDefault();
 				try {
 					isSignUp ? await handleRegistration() : await signIn(email, password);
-					push('/');
+					navigate('/');
 				} catch (err) {
 					setSubmitError(
 						(err as { message?: string })?.message ?? 'Unknown error occurred'

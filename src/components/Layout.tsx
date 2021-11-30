@@ -16,13 +16,19 @@ const Layout: FC = ({ children }) => {
 				<Container maxWidth="sm">
 					<Toolbar>
 						<MainMenu />
-						<Typography
-							variant="h6"
-							component="div"
-							sx={{ flexGrow: 1 }}
-							color="primary"
-						>
-							SOLARIS
+						<Typography component="div" sx={{ flexGrow: 1 }} color="primary">
+							<Button
+								disableElevation
+								disableRipple
+								component={Link}
+								to="/"
+								style={{
+									fontSize: '18px',
+									backgroundColor: 'transparent'
+								}}
+							>
+								SOLARIS
+							</Button>
 						</Typography>
 						{!user && (
 							<Button component={Link} to="/login">
