@@ -16,6 +16,10 @@ export type Body = {
 	meanRadius: number;
 	equaRadius: number;
 	aroundPlanet: { planet: string; rel: string };
+	moons: {
+		moon: string;
+	}[];
+	discoveryDate: string;
 };
 
 type Props = {
@@ -99,7 +103,19 @@ const SpaceBody: FC<Props> = ({ body }) => (
 					/>
 				</Grid>
 				<Grid item xs={6}>
-					<InfoBox value={body.avgTemp} unit="K" caption="Mean Temperature" />
+					{body.isPlanet ? (
+						<InfoBox value={body.moons?.length ?? 0} unit="" caption="Moons" />
+					) : (
+						<InfoBox
+							value={
+								body.discoveryDate
+									? Number(body.discoveryDate?.split('/')[2])
+									: undefined
+							}
+							unit=""
+							caption="Discovery Year"
+						/>
+					)}
 				</Grid>
 				<Grid item xs={6}>
 					<InfoBox
