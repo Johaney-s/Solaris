@@ -4,6 +4,7 @@ import { FC } from 'react';
 import InfoBox from './InfoBox';
 
 export type Body = {
+	id: string;
 	englishName: string;
 	isPlanet: boolean;
 	mass: {
@@ -14,6 +15,7 @@ export type Body = {
 	sideralOrbit: number;
 	meanRadius: number;
 	equaRadius: number;
+	aroundPlanet: { planet: string; rel: string };
 };
 
 type Props = {

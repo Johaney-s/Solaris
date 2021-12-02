@@ -28,7 +28,7 @@ type Props = {
 const SearchForm = ({ username }: Props) => {
 	const [params, setParams] = useState<string>('');
 	const [query, setQuery] = useState<string>('');
-	const [data, setData] = useState<Body>();
+	const [data, setData] = useState<Body[]>();
 	const [error, setError] = useState<string>('');
 	const [adoptions, setAdoptions] = useState<UserAdoptions[]>();
 	const [userTokens, setUserTokens] = useState<number>(0);
@@ -72,9 +72,14 @@ const SearchForm = ({ username }: Props) => {
 	};
 
 	const fetchById = async (id: string) => {
-		fetch(`https://api.le-systeme-solaire.net/rest/bodies/${id}`)
+		fetch(
+			`https://api.le-systeme-solaire.net/rest/bodies?filter=englishName,cs,${id}`
+		)
 			.then(response => response.json())
-			.then((response: Body) => setData(response))
+			.then(response => response.bodies)
+			.then((response: Body[]) =>
+				setData(response.filter(a => !a.isPlanet && !a.aroundPlanet))
+			)
 			.catch(error => setError(error));
 	};
 
@@ -121,14 +126,13 @@ const SearchForm = ({ username }: Props) => {
 					{notification}
 				</Typography>
 			) : null}
-			{data ? (
-				<Grid container justifyContent="center" spacing={2}>
-					<Grid item xs={4}>
-						<SpaceBody body={data} />
+			<Grid container spacing={2}>
+				{data?.map(obj => (
+					<Grid key={obj.englishName} item xs={4}>
+						<SpaceBody body={obj} />
 						<Tooltip
 							title={
-								(data.isPlanet && 'Cannot adopt planet') ||
-								(isAdopted(query) && 'Already adopted') ||
+								(isAdopted(obj.id) && 'Already adopted') ||
 								(!username && 'You need to be logged in') ||
 								(userTokens === 0 && 'Out of tokens') ||
 								''
@@ -136,21 +140,16 @@ const SearchForm = ({ username }: Props) => {
 						>
 							<span>
 								<Button
-									disabled={
-										data.isPlanet ||
-										isAdopted(query) ||
-										!username ||
-										userTokens === 0
-									}
-									onClick={() => adoptAsteroid(query)}
+									disabled={isAdopted(obj.id) || !username || userTokens === 0}
+									onClick={() => adoptAsteroid(obj.id)}
 								>
-									ADOPT {data.englishName}
+									ADOPT {obj.englishName}
 								</Button>
 							</span>
 						</Tooltip>
 					</Grid>
-				</Grid>
-			) : null}
+				))}
+			</Grid>
 			{error ? (
 				<Typography variant="h5" align="center" color="#ff604f">
 					Object with id {params} not found.
