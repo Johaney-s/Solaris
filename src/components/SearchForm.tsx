@@ -1,3 +1,4 @@
+import { onSnapshot, setDoc } from '@firebase/firestore';
 import { Search } from '@mui/icons-material';
 import {
 	Box,
@@ -9,15 +10,61 @@ import {
 	Tooltip,
 	Typography
 } from '@mui/material';
+import { addDoc } from 'firebase/firestore';
 import { FormEvent, useEffect, useState } from 'react';
 
 import SpaceBody, { Body } from '../components/SpaceBody';
+import {
+	tokensDocument,
+	UserAdoptions,
+	userAdoptionsCollection,
+	userTokensCollection
+} from '../utils/firebase';
 
-const SearchForm = () => {
+type Props = {
+	username?: string;
+};
+
+const SearchForm = ({ username }: Props) => {
 	const [params, setParams] = useState<string>('');
 	const [query, setQuery] = useState<string>('');
 	const [data, setData] = useState<Body>();
 	const [error, setError] = useState<string>('');
+	const [adoptions, setAdoptions] = useState<UserAdoptions[]>();
+	const [userTokens, setUserTokens] = useState<number>(0);
+	const [notification, setNotification] = useState<string>('');
+
+	/* Update adoptions regularly */
+	useEffect(() => {
+		const unsubscribe = onSnapshot(userAdoptionsCollection, snapshot => {
+			setAdoptions(snapshot.docs.map(doc => doc.data()));
+		});
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+
+	/* Update user tokens */
+	useEffect(() => {
+		const unsubscribe = onSnapshot(userTokensCollection, snapshot => {
+			setUserTokens(
+				snapshot.docs
+					.map(doc => doc.data())
+					.filter(a => a.user === username)
+					.map(a => a.tokens)[0]
+			);
+		});
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+
+	useEffect(() => {
+		setData(undefined);
+		setError('');
+		setNotification('');
+		params && fetchById(params);
+	}, [params]);
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
@@ -31,15 +78,22 @@ const SearchForm = () => {
 			.catch(error => setError(error));
 	};
 
-	useEffect(() => {
-		setData(undefined);
-		setError('');
-		params && fetchById(params);
-	}, [params]);
+	const isAdopted = (id: string) =>
+		adoptions ? adoptions.some(a => a.asteroid === id) : false;
 
-	useEffect(() => {
-		console.log(data);
-	}, [data]);
+	const adoptAsteroid = (id: string) => {
+		addDoc(userAdoptionsCollection, {
+			asteroid: id,
+			user: username
+		});
+		setDoc(tokensDocument(username ? username : ''), {
+			user: username,
+			tokens: userTokens - 1
+		});
+		setNotification(
+			`Successfuly adopted ${id}, ${userTokens - 1} tokens left.`
+		);
+	};
 
 	return (
 		<>
@@ -62,13 +116,34 @@ const SearchForm = () => {
 					}}
 				/>
 			</Box>
+			{notification ? (
+				<Typography variant="h5" align="center">
+					{notification}
+				</Typography>
+			) : null}
 			{data ? (
 				<Grid container justifyContent="center" spacing={2}>
 					<Grid item xs={4}>
 						<SpaceBody body={data} />
-						<Tooltip title={data.isPlanet ? 'Cannot adopt planet' : ''}>
+						<Tooltip
+							title={
+								(data.isPlanet && 'Cannot adopt planet') ||
+								(isAdopted(query) && 'Already adopted') ||
+								(!username && 'You need to be logged in') ||
+								(userTokens === 0 && 'Out of tokens') ||
+								''
+							}
+						>
 							<span>
-								<Button disabled={data.isPlanet}>
+								<Button
+									disabled={
+										data.isPlanet ||
+										isAdopted(query) ||
+										!username ||
+										userTokens === 0
+									}
+									onClick={() => adoptAsteroid(query)}
+								>
 									ADOPT {data.englishName}
 								</Button>
 							</span>

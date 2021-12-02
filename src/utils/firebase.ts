@@ -10,6 +10,8 @@ import {
 import {
 	collection,
 	CollectionReference,
+	doc,
+	DocumentReference,
 	getFirestore
 } from 'firebase/firestore';
 
@@ -53,3 +55,16 @@ export const userTokensCollection = collection(
 	db,
 	'users'
 ) as CollectionReference<UserTokens>;
+
+export type UserAdoptions = {
+	asteroid: string;
+	user: string;
+};
+
+export const userAdoptionsCollection = collection(
+	db,
+	'adoptions'
+) as CollectionReference<UserAdoptions>;
+
+export const tokensDocument = (username: string) =>
+	doc(db, 'users', username) as DocumentReference<UserTokens>;
