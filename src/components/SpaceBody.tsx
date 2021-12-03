@@ -1,5 +1,13 @@
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import {
+	Box,
+	Button,
+	Card,
+	CardContent,
+	Grid,
+	Typography
+} from '@mui/material';
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import InfoBox from './InfoBox';
 
@@ -56,7 +64,14 @@ const SpaceBody: FC<Props> = ({ body }) => (
 		}}
 	>
 		<CardContent>
-			<Typography variant="h5" color="textSecondary">
+			<Typography
+				variant="h5"
+				color="textSecondary"
+				sx={{
+					display: 'flex',
+					justifyContent: 'center'
+				}}
+			>
 				{body.englishName}
 			</Typography>
 			{/*<Typography>{type}</Typography>*/}
@@ -93,7 +108,7 @@ const SpaceBody: FC<Props> = ({ body }) => (
 					}}
 				/>
 			</Box>
-			<Grid container spacing={3}>
+			<Grid container spacing={3} sx={{ pb: 2 }}>
 				<Grid item xs={6}>
 					<InfoBox
 						value={Math.round(body.sideralOrbit)}
@@ -137,6 +152,27 @@ const SpaceBody: FC<Props> = ({ body }) => (
 					/>
 				</Grid>
 			</Grid>
+			{body.isPlanet && (
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center'
+					}}
+				>
+					<Button
+						variant="contained"
+						component={Link}
+						to={`/explore/${body.id}`}
+						sx={{
+							display: 'flex',
+							justifyContent: 'center'
+						}}
+					>
+						DETAIL
+					</Button>
+				</Box>
+			)}
 		</CardContent>
 	</Card>
 );
