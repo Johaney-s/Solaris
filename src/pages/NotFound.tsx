@@ -1,7 +1,7 @@
 import { Button, Link } from '@mui/material';
 import { Box } from '@mui/system';
 
-const NotFound = () => {
+const NotFound = () => (
 	<Box>
 		You are lost! Go back to
 		<Button component={Link}>HOME</Button> planet and try again.
@@ -15,6 +15,6 @@ const NotFound = () => {
 			}}
 		/>
 		;
-	</Box>;
-};
+	</Box>
+);
 export default NotFound;

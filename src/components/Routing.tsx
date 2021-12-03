@@ -18,7 +18,7 @@ const Routing = () => {
 				path="/adopt"
 				element={<Adopt username={user?.email ?? undefined} />}
 			/>
-			{/* <Route element={<NotFound />} /> */}
+			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
 };
