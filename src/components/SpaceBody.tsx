@@ -108,8 +108,12 @@ const SpaceBody: FC<Props> = ({ body }) => (
 					) : (
 						<InfoBox
 							value={
-								body.discoveryDate
-									? Number(body.discoveryDate?.split('/')[2])
+								body.discoveryDate?.length >= 4
+									? Number(
+											body.discoveryDate?.substring(
+												body.discoveryDate.length - 4
+											)
+									  )
 									: undefined
 							}
 							unit=""
