@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { Box, Button, Card, CardContent } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { onSnapshot } from 'firebase/firestore';
@@ -20,26 +20,18 @@ const Home = () => {
 	}, []);
 
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				width: '160%'
-			}}
-		>
-			<Card
-				style={{
-					borderRight: '0.1em solid white',
-					width: '100%',
-					height: '100%',
-					borderRadius: 0
-				}}
-			>
-				<CardContent>
+		<Grid marginTop="auto" marginBottom="auto">
+			<Grid container spacing={3}>
+				<Grid
+					item
+					xs={6}
+					sx={{ background: 'primary', borderRight: '0.1em solid white' }}
+				>
 					<Typography variant="h3" align="center">
 						Save the Universe!
 					</Typography>
 					<Typography variant="body1" mt={5} mb={3}>
-						The amount of pollution around our planet is becoming a huge
+						The amount of pollution around our planet is becoming a&nbsp;huge
 						problem. Help us save the Universe and adopt your asteroid today!
 						The money will be used to build cleaning station on Earth&apos;s
 						orbit.
@@ -51,28 +43,8 @@ const Home = () => {
 					<Typography variant="h6" mt={4} mb={3}>
 						{`There are currently ${adoptionsCounter} asteroids adopted!`}
 					</Typography>
-					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-						<Button
-							component={Link}
-							to="/adopt"
-							variant="contained"
-							sx={{
-								alignSelf: 'center',
-								marginLeft: 'auto',
-								marginRight: 'auto'
-							}}
-						>
-							LET&apos;S ADOPT!
-						</Button>
-					</div>
-				</CardContent>
-			</Card>
-			<Card
-				style={{
-					width: '100%'
-				}}
-			>
-				<CardContent>
+				</Grid>
+				<Grid item xs={6} sx={{ background: 'primary' }}>
 					<img
 						src={solarSystemClipart}
 						alt="Solar System"
@@ -89,7 +61,31 @@ const Home = () => {
 						Check out information about objects in the Solar system and learn
 						more about our neighbours!
 					</Typography>
-					<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+				</Grid>
+			</Grid>
+			<Grid container spacing={3}>
+				<Grid
+					item
+					xs={6}
+					sx={{ background: 'primary', borderRight: '0.1em solid white' }}
+				>
+					<div style={{ display: 'flex' }}>
+						<Button
+							component={Link}
+							to="/adopt"
+							variant="contained"
+							sx={{
+								alignSelf: 'center',
+								marginLeft: 'auto',
+								marginRight: 'auto'
+							}}
+						>
+							LET&apos;S ADOPT!
+						</Button>
+					</div>
+				</Grid>
+				<Grid item xs={6}>
+					<div style={{ display: 'flex' }}>
 						<Button
 							component={Link}
 							to="/explore"
@@ -103,9 +99,9 @@ const Home = () => {
 							EXPLORE NOW!
 						</Button>
 					</div>
-				</CardContent>
-			</Card>
-		</Box>
+				</Grid>
+			</Grid>
+		</Grid>
 	);
 };
 
