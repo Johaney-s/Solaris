@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import Explore from '../pages/Explore';
 import Adopt from '../pages/Adopt';
 import NotFound from '../pages/NotFound';
+import Planet from '../pages/Planet';
 
 const Routing = () => {
 	const user = useLoggedInUser();
@@ -13,6 +14,7 @@ const Routing = () => {
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/explore" element={<Explore />} />
+			<Route path="/explore/:id" element={<Planet />} />
 			{!user && <Route path="/login" element={<Login />} />}
 			<Route
 				path="/adopt"
