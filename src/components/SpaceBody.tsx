@@ -79,6 +79,8 @@ const SpaceBody: FC<Props> = ({ body }) => (
 				sx={{
 					borderRadius: 20,
 					padding: '1',
+					display: 'flex',
+					justifyContent: 'center',
 					width: '100%'
 				}}
 			>
