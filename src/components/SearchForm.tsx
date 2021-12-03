@@ -13,7 +13,7 @@ import {
 import { addDoc } from 'firebase/firestore';
 import { FormEvent, useEffect, useState } from 'react';
 
-import SpaceBody, { Body } from '../components/SpaceBody';
+import useAsteroids from '../hooks/useAsteroids';
 import {
 	tokensDocument,
 	UserAdoptions,
@@ -21,18 +21,20 @@ import {
 	userTokensCollection
 } from '../utils/firebase';
 
+import SpaceBody, { Body } from './SpaceBody';
+
 type Props = {
 	username?: string;
 };
 
 const SearchForm = ({ username }: Props) => {
+	const data = useAsteroids();
 	const [params, setParams] = useState<string>('');
 	const [query, setQuery] = useState<string>('');
-	const [data, setData] = useState<Body[]>();
-	const [error, setError] = useState<string>('');
 	const [adoptions, setAdoptions] = useState<UserAdoptions[]>();
 	const [userTokens, setUserTokens] = useState<number>(0);
 	const [notification, setNotification] = useState<string>('');
+	const [results, setResults] = useState<Body[]>();
 
 	/* Update adoptions regularly */
 	useEffect(() => {
@@ -60,27 +62,24 @@ const SearchForm = ({ username }: Props) => {
 	}, []);
 
 	useEffect(() => {
-		setData(undefined);
-		setError('');
-		setNotification('');
-		params && fetchById(params);
-	}, [params]);
+		setResults(
+			data
+				? data.filter(a =>
+						a.englishName.toLowerCase().includes(params.toLowerCase())
+				  )
+				: undefined
+		);
+	}, [params, data]);
+
+	useEffect(() => {
+		setNotification(
+			results?.length === 0 && params ? 'No asteroid found.' : ''
+		);
+	}, [results]);
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		setParams(query ? query : '');
-	};
-
-	const fetchById = async (id: string) => {
-		fetch(
-			`https://api.le-systeme-solaire.net/rest/bodies?filter=englishName,cs,${id}`
-		)
-			.then(response => response.json())
-			.then(response => response.bodies)
-			.then((response: Body[]) =>
-				setData(response.filter(a => !a.isPlanet && !a.aroundPlanet))
-			)
-			.catch(error => setError(error));
 	};
 
 	const isAdopted = (id: string) =>
@@ -127,7 +126,7 @@ const SearchForm = ({ username }: Props) => {
 				</Typography>
 			) : null}
 			<Grid container spacing={2}>
-				{data?.map(obj => (
+				{results?.map(obj => (
 					<Grid key={obj.englishName} item xs={4}>
 						<SpaceBody body={obj} />
 						<Tooltip
@@ -150,11 +149,6 @@ const SearchForm = ({ username }: Props) => {
 					</Grid>
 				))}
 			</Grid>
-			{error ? (
-				<Typography variant="h5" align="center" color="#ff604f">
-					Object with id {params} not found.
-				</Typography>
-			) : null}
 		</>
 	);
 };

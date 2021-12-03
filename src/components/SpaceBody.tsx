@@ -131,8 +131,8 @@ const SpaceBody: FC<Props> = ({ body }) => (
 				</Grid>
 				<Grid item xs={6}>
 					<InfoBox
-						value={Math.round(body.mass.massValue)}
-						unit={`10^${body.mass.massExponent} kg`}
+						value={body.mass ? Math.round(body.mass.massValue) : undefined}
+						unit={body.mass ? `10^${body.mass.massExponent} kg` : undefined}
 						caption="Mass"
 					/>
 				</Grid>
