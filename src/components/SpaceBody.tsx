@@ -11,6 +11,10 @@ export type Body = {
 		massValue: number;
 		massExponent: number;
 	};
+	vol: {
+		volValue: number;
+		volExponent: number;
+	};
 	avgTemp: number;
 	sideralOrbit: number;
 	meanRadius: number;
@@ -20,6 +24,10 @@ export type Body = {
 		moon: string;
 	}[];
 	discoveryDate: string;
+	semimajorAxis: number;
+	perihelion: number;
+	aphelion: number;
+	eccentricity: number;
 };
 
 type Props = {
@@ -37,7 +45,7 @@ const mainPlanets = new Set([
 	'Neptune'
 ]);
 
-const isMainPlanet = (planetName: string) => mainPlanets.has(planetName);
+export const isMainPlanet = (planetName: string) => mainPlanets.has(planetName);
 
 const SpaceBody: FC<Props> = ({ body }) => (
 	<Card

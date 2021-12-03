@@ -49,7 +49,7 @@ const Layout: FC = ({ children }) => {
 					// justifyContent: 'center',
 					alignItems: 'center',
 					height: '100vh',
-					pt: 20,
+					pt: 15,
 					gap: 2
 				}}
 			>
