@@ -1,20 +1,23 @@
-import { Button, Link } from '@mui/material';
-import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
+
+import rocket from '../images/rocket.png';
 
 const NotFound = () => (
-	<Box>
-		You are lost! Go back to
-		<Button component={Link}>HOME</Button> planet and try again.
+	<>
+		<Typography variant="h1">404</Typography>
 		<img
-			src="images/Asteroid3.png"
-			alt="Solar System"
+			src={rocket}
+			alt="Explorer rocket"
 			style={{
 				borderRadius: 20,
 				padding: '1',
-				width: '100%'
+				width: '30%',
+				rotate: '30deg'
 			}}
 		/>
-		;
-	</Box>
+		<Typography variant="h5" marginTop="30px">
+			You reached uncharted place of the Solar System!
+		</Typography>
+	</>
 );
 export default NotFound;

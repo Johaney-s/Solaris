@@ -10,7 +10,11 @@ const useAsteroids = () => {
 			.then(response => response.json())
 			.then(response => response.bodies)
 			.then((response: Body[]) =>
-				setData(response.filter(a => !a.isPlanet && !a.aroundPlanet))
+				setData(
+					response.filter(
+						a => !a.isPlanet && !a.aroundPlanet && a.id !== 'soleil'
+					)
+				)
 			);
 	};
 
