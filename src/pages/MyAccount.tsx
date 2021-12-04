@@ -49,7 +49,7 @@ const MyAccount = () => {
 			?.filter(adoption => adoption.user === user?.email)
 			.forEach(adoption =>
 				cards.push(
-					<Grid item key={adoption.asteroid} xs={6}>
+					<Grid item key={adoption.asteroid} xs={12} sm={6}>
 						<SpaceBody
 							body={
 								data?.filter(asteroid => asteroid.id === adoption.asteroid)[0]

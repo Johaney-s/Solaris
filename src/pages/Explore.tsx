@@ -22,7 +22,7 @@ const Explore = () => {
 	return (
 		<Grid container spacing={2}>
 			{data.map(p => (
-				<Grid key={p.englishName} item xs={4}>
+				<Grid key={p.englishName} item xs={12} sm={6} md={4}>
 					<SpaceBody body={p} />
 				</Grid>
 			))}

@@ -128,7 +128,7 @@ const SearchForm = ({ username }: Props) => {
 			) : null}
 			<Grid container spacing={2}>
 				{results?.map(obj => (
-					<Grid key={obj.englishName} item xs={4}>
+					<Grid key={obj.englishName} item xs={12} sm={6} md={4}>
 						<SpaceBody body={obj} />
 						<Tooltip
 							title={
