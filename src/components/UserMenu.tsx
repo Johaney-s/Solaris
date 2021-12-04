@@ -46,7 +46,9 @@ const UserMenu: FC = () => {
 				<MenuItem onClick={handleClose} component={Link} to="/account">
 					My account
 				</MenuItem>
-				<MenuItem onClick={signOut}>Logout</MenuItem>
+				<MenuItem onClick={signOut} component={Link} to="/">
+					Logout
+				</MenuItem>
 			</Menu>
 		</>
 	);
