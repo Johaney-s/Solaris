@@ -55,7 +55,7 @@ const mainPlanets = new Set([
 
 export const isMainPlanet = (planetName: string) => mainPlanets.has(planetName);
 
-const SpaceBody: FC<Props> = ({ body }) => (
+const SpaceBody: FC<Props> = ({ body, children }) => (
 	<Card
 		sx={{
 			display: 'flex',
@@ -151,14 +151,14 @@ const SpaceBody: FC<Props> = ({ body }) => (
 					/>
 				</Grid>
 			</Grid>
-			{body.isPlanet && (
-				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center'
-					}}
-				>
+			<Box
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center'
+				}}
+			>
+				{body.isPlanet && (
 					<Button
 						variant="contained"
 						component={Link}
@@ -170,8 +170,9 @@ const SpaceBody: FC<Props> = ({ body }) => (
 					>
 						DETAIL
 					</Button>
-				</Box>
-			)}
+				)}
+				{children}
+			</Box>
 		</CardContent>
 	</Card>
 );

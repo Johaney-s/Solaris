@@ -129,31 +129,34 @@ const SearchForm = ({ username }: Props) => {
 			<Grid container spacing={2}>
 				{results?.map(obj => (
 					<Grid key={obj.englishName} item xs={12} sm={6} md={4}>
-						<SpaceBody body={obj} />
-						<Tooltip
-							title={
-								(isAdopted(obj.id) && 'Already adopted') ||
-								(!username && 'You need to be logged in') ||
-								(userTokens === 0 && 'Out of tokens') ||
-								''
-							}
-						>
-							<span style={{ display: 'flex' }}>
-								<Button
-									variant="outlined"
-									sx={{
-										alignSelf: 'center',
-										marginLeft: 'auto',
-										marginRight: 'auto',
-										marginTop: '4px'
-									}}
-									disabled={isAdopted(obj.id) || !username || userTokens === 0}
-									onClick={() => adoptAsteroid(obj.id)}
-								>
-									ADOPT {obj.englishName}
-								</Button>
-							</span>
-						</Tooltip>
+						<SpaceBody body={obj}>
+							<Tooltip
+								title={
+									(isAdopted(obj.id) && 'Already adopted') ||
+									(!username && 'You need to be logged in') ||
+									(userTokens === 0 && 'Out of tokens') ||
+									''
+								}
+							>
+								<span style={{ display: 'flex' }}>
+									<Button
+										variant="outlined"
+										sx={{
+											alignSelf: 'center',
+											marginLeft: 'auto',
+											marginRight: 'auto',
+											marginTop: '4px'
+										}}
+										disabled={
+											isAdopted(obj.id) || !username || userTokens === 0
+										}
+										onClick={() => adoptAsteroid(obj.id)}
+									>
+										ADOPT {obj.englishName}
+									</Button>
+								</span>
+							</Tooltip>
+						</SpaceBody>
 					</Grid>
 				))}
 			</Grid>
