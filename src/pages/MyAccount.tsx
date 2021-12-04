@@ -49,7 +49,7 @@ const MyAccount = () => {
 			?.filter(adoption => adoption.user === user?.email)
 			.forEach(adoption =>
 				cards.push(
-					<Grid item key={adoption.asteroid} xs={4}>
+					<Grid item key={adoption.asteroid} xs={6}>
 						<SpaceBody
 							body={
 								data?.filter(asteroid => asteroid.id === adoption.asteroid)[0]
@@ -66,7 +66,7 @@ const MyAccount = () => {
 			<Box sx={{ width: 'fit-content' }}>
 				<UserBox
 					username={user?.email ?? ''}
-					direction="left"
+					direction={undefined}
 					tokens={userTokens}
 				/>
 			</Box>

@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import { FC } from 'react';
 
 import astronaut from '../images/Astronaut.png';
@@ -25,17 +25,25 @@ const UserBox: FC<Props> = ({ username, direction, tokens }) => (
 		}}
 	>
 		<CardContent>
-			<img
-				src={astronaut}
-				alt="Solar System"
-				style={{
-					borderRadius: 100,
-					padding: '1',
-					background: 'white',
-					height: '6em',
-					width: '6em'
+			<Box
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					mb: 1
 				}}
-			/>
+			>
+				<img
+					src={astronaut}
+					alt="Solar System"
+					style={{
+						borderRadius: 100,
+						padding: '1',
+						background: 'white',
+						height: '6em',
+						width: '6em'
+					}}
+				/>
+			</Box>
 			<Typography
 				variant="h5"
 				color="textSecondary"
