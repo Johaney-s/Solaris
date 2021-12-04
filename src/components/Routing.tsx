@@ -8,6 +8,7 @@ import Adopt from '../pages/Adopt';
 import NotFound from '../pages/NotFound';
 import Planet from '../pages/Planet';
 import Adopted from '../pages/Adopted';
+import MyAccount from '../pages/MyAccount';
 
 const Routing = () => {
 	const user = useLoggedInUser();
@@ -17,6 +18,7 @@ const Routing = () => {
 			<Route path="/explore" element={<Explore />} />
 			<Route path="/explore/:id" element={<Planet />} />
 			{!user && <Route path="/login" element={<Login />} />}
+			{user && <Route path="/account" element={<MyAccount />} />}
 			<Route
 				path="/adopt"
 				element={<Adopt username={user?.email ?? undefined} />}

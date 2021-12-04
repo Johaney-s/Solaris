@@ -6,9 +6,10 @@ import astronaut from '../images/Astronaut.png';
 type Props = {
 	username: string;
 	direction: 'left' | 'right' | undefined;
+	tokens?: number;
 };
 
-const UserBox: FC<Props> = ({ username, direction }) => (
+const UserBox: FC<Props> = ({ username, direction, tokens }) => (
 	<Card
 		sx={{
 			flexDirection: 'column',
@@ -40,11 +41,25 @@ const UserBox: FC<Props> = ({ username, direction }) => (
 				color="textSecondary"
 				sx={{
 					display: 'flex',
-					justifyContent: 'center'
+					justifyContent: 'center',
+					pr: 5,
+					pl: 5
 				}}
 			>
 				{username}
 			</Typography>
+			{tokens !== undefined && (
+				<Typography
+					variant="h5"
+					color="textSecondary"
+					sx={{
+						display: 'flex',
+						justifyContent: 'center'
+					}}
+				>
+					tokens: {tokens}
+				</Typography>
+			)}
 		</CardContent>
 	</Card>
 );
