@@ -99,22 +99,11 @@ const SpaceBody: FC<Props> = ({ body }) => (
 							: `/images/Asteroid${(body.id.length % 5) + 1}.png`
 					}
 					alt={body.englishName}
-					// height="auto"
-					// height={300}
-					// width="auto"
-					// width={300}
 					style={{
 						borderRadius: 20,
 						padding: '1',
 						// // margin: '1'
-						// width: '70%'
-						// width: '350px',
-						// width: 'auto',
-						height: '12em',
-						width: '12em',
-						// height: '350px'
-						// height: '150px',
-						objectFit: 'cover'
+						width: '80%'
 					}}
 				/>
 			</Box>
