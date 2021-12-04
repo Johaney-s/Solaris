@@ -2,7 +2,7 @@ import { Button, Paper, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { addDoc } from '@firebase/firestore';
+import { doc, setDoc } from '@firebase/firestore';
 
 import { signIn, signUp, userTokensCollection } from '../utils/firebase';
 import useField from '../hooks/useField';
@@ -21,7 +21,7 @@ const Login = () => {
 
 	const handleRegistration = async () => {
 		await signUp(email, password);
-		addDoc(userTokensCollection, {
+		setDoc(doc(userTokensCollection, email), {
 			user: email,
 			tokens: 2
 		});
