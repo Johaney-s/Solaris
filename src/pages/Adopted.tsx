@@ -5,9 +5,12 @@ import { useEffect, useState } from 'react';
 import SpaceBody from '../components/SpaceBody';
 import UserBox from '../components/UserBox';
 import useAsteroids from '../hooks/useAsteroids';
+import usePageTitle from '../hooks/usePageTitle';
 import { UserAdoptions, userAdoptionsCollection } from '../utils/firebase';
 
 const Adopted = () => {
+	usePageTitle('Adopted asteroids');
+
 	const data = useAsteroids();
 	const [adoptions, setAdoptions] = useState<UserAdoptions[]>();
 

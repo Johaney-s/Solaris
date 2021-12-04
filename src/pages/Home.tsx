@@ -6,8 +6,11 @@ import { onSnapshot } from 'firebase/firestore';
 
 import solarSystemClipart from '../solar-system-clipart-md.png';
 import { userAdoptionsCollection } from '../utils/firebase';
+import usePageTitle from '../hooks/usePageTitle';
 
 const Home = () => {
+	usePageTitle('Home');
+
 	const [adoptionsCounter, setAdoptionsCounter] = useState<number>(0);
 
 	useEffect(() => {

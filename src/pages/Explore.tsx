@@ -2,8 +2,11 @@ import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import SpaceBody, { Body } from '../components/SpaceBody';
+import usePageTitle from '../hooks/usePageTitle';
 
 const Explore = () => {
+	usePageTitle('Explore');
+
 	const [data, setData] = useState<Body[]>([]);
 
 	const fetchPlanets = async () => {

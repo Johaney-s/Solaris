@@ -6,9 +6,11 @@ import { addDoc } from '@firebase/firestore';
 
 import { signIn, signUp, userTokensCollection } from '../utils/firebase';
 import useField from '../hooks/useField';
+import usePageTitle from '../hooks/usePageTitle';
 
 const Login = () => {
 	const navigate = useNavigate();
+	usePageTitle('Login');
 
 	const [isSignUp, setSignUp] = useState(false);
 

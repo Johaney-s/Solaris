@@ -13,10 +13,13 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import SpaceBody, { Body, isMainPlanet } from '../components/SpaceBody';
+import usePageTitle from '../hooks/usePageTitle';
 
 import NotFound from './NotFound';
 
 const Planet = () => {
+	usePageTitle('Planet');
+
 	const { id } = useParams();
 	const [data, setData] = useState<Body | undefined>(undefined);
 	const [moons, setMoons] = useState<Body[]>([]);

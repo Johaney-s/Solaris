@@ -12,8 +12,11 @@ import {
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import UserBox from '../components/UserBox';
 import useAsteroids from '../hooks/useAsteroids';
+import usePageTitle from '../hooks/usePageTitle';
 
 const MyAccount = () => {
+	usePageTitle('My account');
+
 	const user = useLoggedInUser();
 	const data = useAsteroids();
 	const [userTokens, setUserTokens] = useState<number>(0);
