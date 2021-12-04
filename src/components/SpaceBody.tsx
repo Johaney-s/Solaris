@@ -86,9 +86,17 @@ const SpaceBody: FC<Props> = ({ body }) => (
 			>
 				<img
 					src={
-						isMainPlanet(body.englishName)
-							? `/images/${body.englishName}.png`
-							: `/images/Dwarf.png`
+						body.isPlanet
+							? isMainPlanet(body.englishName)
+								? `/images/${body.englishName}.png`
+								: `/images/Dwarf.png`
+							: body.aroundPlanet
+							? `/images/Moon.png`
+							: body.id === 'soleil'
+							? `/images/Sun.png`
+							: body.englishName.toLowerCase().includes('comet')
+							? `/images/Comet.png`
+							: `/images/Asteroid${(body.id.length % 5) + 1}.png`
 					}
 					alt={body.englishName}
 					// height="auto"

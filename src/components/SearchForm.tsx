@@ -97,6 +97,7 @@ const SearchForm = ({ username }: Props) => {
 		setNotification(
 			`Successfuly adopted ${id}, ${userTokens - 1} tokens left.`
 		);
+		scrollTo(0, 0);
 	};
 
 	return (
